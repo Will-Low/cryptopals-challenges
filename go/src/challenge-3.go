@@ -7,20 +7,26 @@ import (
 )
 
 func main() {
-    input := "1c0111001f010100061a024b53535009181c"
+    input := "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
     inputBytes, err := hex.DecodeString(input)
     if err != nil {
         log.Fatal(err)
     }
-    byteStringToXor := "686974207468652062756c6c277320657965"
+    byteStringToXor := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     bytesToXor, err := hex.DecodeString(byteStringToXor)
     if err != nil {
         log.Fatal(err)
     }
-    var xoredBytes []byte
-    for i, b := range inputBytes {
-        xoredBytes = append(xoredBytes, b ^ bytesToXor[i])
+    var xoredBytes []([]byte)
+
+    for _, char := range bytesToXor {
+        var xoredByCharacter []byte
+        for _, b := range inputBytes {
+            xoredByCharacter = append(xoredByCharacter, char ^ b)
+        }
+        xoredBytes = append(xoredBytes, xoredByCharacter)
     }
-    xoredString := hex.EncodeToString(xoredBytes)
-    fmt.Printf("%s\n", xoredString)
+    //fmt.Printf("%s\n", xoredBytes) 
+    //xoredString := hex.EncodeToString(xoredBytes)
+   
 }
